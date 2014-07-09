@@ -13,7 +13,7 @@ pollutantmean <- function(directory, pollutant, id = 1:332) {
   ## in the 'id' vector (ignoring NA values)
   
   # Read the files related with the ids and store as frames
-  all_monitors <- data.frame()
+  monitors <- data.frame()
   for (i in 1:length(id) ) {
     # Create the filename by adding zeros (extension and path added later)
     filename <- toString(id[i])
@@ -27,7 +27,7 @@ pollutantmean <- function(directory, pollutant, id = 1:332) {
       print(paste('Error: file note found:', filepath))
     } else {
       this_monitor <- read.csv(filepath)
-      all_monitors <- rbind(all_monitors, this_monitor)
+      monitors <- rbind(monitors, this_monitor)
     }
   }
   
@@ -39,7 +39,7 @@ pollutantmean <- function(directory, pollutant, id = 1:332) {
     # Extract the values and put into a vector
     # Remove NA values
     # Calc the mean
-    pollutant_values <- all_monitors[,pollutant]
+    pollutant_values <- monitors[,pollutant]
     pollutant_values <- pollutant_values[!is.na(pollutant_values)]
     pollutant_mean <- mean(pollutant_values)
   }
